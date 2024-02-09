@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 class Main {
     public static void main(String[] args) {
         Pikachu pikachu = new Pikachu("Пикачу");
@@ -9,6 +11,7 @@ class Main {
         charmander.sleep();
     }
 }
+
 class Pikachu extends Pokemon {
     // Конструктор класса Pikachu
     public Pikachu(String name) {
@@ -23,6 +26,7 @@ class Charmander extends Pokemon {
         super(name, 90, 52, 43, 60, 50, 65);
     }
 }
+
 class Pokemon {
     // Переменные экземпляра
     String name;
@@ -32,6 +36,16 @@ class Pokemon {
     int specialAttack;
     int specialDefense;
     int speed;
+
+    // Статическое поле для хранения дополнительного объема HP
+    public final static double additionalHP;
+
+    // Статический инициализатор для установки значения additionalHP из пользовательского ввода
+    static {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Введите дополнительное количество HP для всех покемонов:");
+        additionalHP = scanner.nextDouble();
+    }
 
     // Конструктор класса Pokemon
     public Pokemon(String name, int healthPoints, int attack, int defense, int specialAttack, int specialDefense, int speed) {
