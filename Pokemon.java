@@ -10,7 +10,7 @@ class Main {
         team1.add(new Pikachu("Пикачу"));
         team1.add(new Charmander("Чармандер"));
         team1.add(new Squirtle("Сквиртл"));
-
+        
         // Создаем покемонов для второй команды
         team2.add(new Bulbasaur("Бульбазавр"));
         team2.add(new Jigglypuff("Джигглипафф"));
@@ -23,7 +23,7 @@ class Main {
         for (int i = 0; i < team1.size(); i++) {
             Pokemon pokemon1 = team1.get(i);
             Pokemon pokemon2 = team2.get(i);
-
+            
             System.out.println("---- Начинает бой " + pokemon1.getName() + " против " + pokemon2.getName() + " ----");
             pokemon1.fight(pokemon2);
             pokemon2.fight(pokemon1);
@@ -36,6 +36,11 @@ class Main {
 class Pikachu extends Pokemon {
     public Pikachu(String name) {
         super(name, 100, 55, 40, 50, 50, 90);
+    }
+
+    @Override
+    public int calculateDamage(Pokemon opponent) {
+        return getAttack(); // Переопределяем метод для Пикачу
     }
 }
 
@@ -70,13 +75,13 @@ class Meowth extends Pokemon {
 }
 
 class Pokemon {
-    String name;
-    int healthPoints;
-    int attack;
-    int defense;
-    int specialAttack;
-    int specialDefense;
-    int speed;
+    protected String name;
+    protected int healthPoints;
+    protected int attack;
+    protected int defense;
+    protected int specialAttack;
+    protected int specialDefense;
+    protected int speed;
 
     private final static double additionalHP;
 
@@ -130,7 +135,7 @@ class Pokemon {
         System.out.println("Здоровье " + name + " восстановлено на " + healAmount + " единиц.");
     }
 
-    private int calculateDamage(Pokemon opponent) {
+    protected int calculateDamage(Pokemon opponent) {
         return attack;
     }
 
@@ -141,3 +146,4 @@ class Pokemon {
         }
     }
 }
+
