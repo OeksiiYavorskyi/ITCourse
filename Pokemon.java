@@ -10,7 +10,7 @@ class Main {
         team1.add(new Pikachu("Пикачу"));
         team1.add(new Charmander("Чармандер"));
         team1.add(new Squirtle("Сквиртл"));
-        
+
         // Создаем покемонов для второй команды
         team2.add(new Bulbasaur("Бульбазавр"));
         team2.add(new Jigglypuff("Джигглипафф"));
@@ -23,7 +23,7 @@ class Main {
         for (int i = 0; i < team1.size(); i++) {
             Pokemon pokemon1 = team1.get(i);
             Pokemon pokemon2 = team2.get(i);
-            
+
             System.out.println("---- Начинает бой " + pokemon1.getName() + " против " + pokemon2.getName() + " ----");
             pokemon1.fight(pokemon2);
             pokemon2.fight(pokemon1);
@@ -41,6 +41,10 @@ class Pikachu extends Pokemon {
     @Override
     public int calculateDamage(Pokemon opponent) {
         return getAttack(); // Переопределяем метод для Пикачу
+    }
+
+    private int getAttack() {
+        return 0;
     }
 }
 
@@ -146,4 +150,3 @@ class Pokemon {
         }
     }
 }
-
