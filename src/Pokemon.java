@@ -1,5 +1,10 @@
+import org.junit.jupiter.api.Test;
+
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.Scanner;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 class Main {
     public static void main(String[] args) {
@@ -35,54 +40,57 @@ class Main {
 
 class Pikachu extends Pokemon {
     public Pikachu(String name) {
-        // Параметры для Pikachu
         super(name, 100, 55, 40, 50, 50, 90);
+    }
+
+    @Override
+    public int calculateDamage(Pokemon opponent) {
+        return getAttack(); // Переопределяем метод для Пикачу
+    }
+
+    private int getAttack() {
+        return 0;
     }
 }
 
 class Charmander extends Pokemon {
     public Charmander(String name) {
-        // Параметры для Charmander
         super(name, 90, 52, 43, 60, 50, 65);
     }
 }
 
 class Squirtle extends Pokemon {
     public Squirtle(String name) {
-        // Параметры для Squirtle
         super(name, 80, 48, 65, 50, 64, 43);
     }
 }
 
 class Bulbasaur extends Pokemon {
     public Bulbasaur(String name) {
-        // Параметры для Bulbasaur
         super(name, 85, 49, 49, 65, 65, 45);
     }
 }
 
 class Jigglypuff extends Pokemon {
     public Jigglypuff(String name) {
-        // Параметры для Jigglypuff
         super(name, 115, 45, 20, 45, 25, 20);
     }
 }
 
 class Meowth extends Pokemon {
     public Meowth(String name) {
-        // Параметры для Meowth
         super(name, 40, 45, 35, 40, 40, 90);
     }
 }
 
 class Pokemon {
-    String name;
-    int healthPoints;
-    int attack;
-    int defense;
-    int specialAttack;
-    int specialDefense;
-    int speed;
+    protected String name;
+    protected int healthPoints;
+    protected int attack;
+    protected int defense;
+    protected int specialAttack;
+    protected int specialDefense;
+    protected int speed;
 
     private final static double additionalHP;
 
@@ -100,10 +108,6 @@ class Pokemon {
         this.specialAttack = specialAttack;
         this.specialDefense = specialDefense;
         this.speed = speed;
-    }
-
-    public static double getAdditionalHP() {
-        return 0;
     }
 
     public String getName() {
@@ -140,7 +144,7 @@ class Pokemon {
         System.out.println("Здоровье " + name + " восстановлено на " + healAmount + " единиц.");
     }
 
-    private int calculateDamage(Pokemon opponent) {
+    protected int calculateDamage(Pokemon opponent) {
         return attack;
     }
 
@@ -149,5 +153,38 @@ class Pokemon {
         if (healthPoints < 0) {
             healthPoints = 0;
         }
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        Pokemon pokemon = (Pokemon) obj;
+        return healthPoints == pokemon.healthPoints &&
+                attack == pokemon.attack &&
+                defense == pokemon.defense &&
+                specialAttack == pokemon.specialAttack &&
+                specialDefense == pokemon.specialDefense &&
+                speed == pokemon.speed &&
+                Objects.equals(name, pokemon.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, healthPoints, attack, defense, specialAttack, specialDefense, speed);
+    }
+}
+
+class PokemonTest {
+
+    @Test
+    void testEqualsAndHashCode() {
+        Pikachu pikachu1 = new Pikachu("Пикачу");
+        Pikachu pikachu2 = new Pikachu("Пикачу");
+        Pikachu pikachu3 = new Pikachu("Пикачу2");
+
+        assertTrue(pikachu1.equals(pikachu2) && pikachu2.equals(pikachu1), "Equals should be symmetric");
+        assertEquals(pikachu1.hashCode(), pikachu2.hashCode(), "Equal objects should have equal hash codes");
+        assertNotEquals(pikachu1.hashCode(), pikachu3.hashCode(), "Different objects should have different hash codes");
     }
 }
