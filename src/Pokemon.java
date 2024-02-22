@@ -36,6 +36,17 @@ class Main {
             pokemon2.sleep();
         }
     }
+
+    private void sleep() {
+    }
+
+    private void fight(Pokemon pokemon2) {
+    }
+}
+
+interface PokemonInteraction {
+    void fight(Pokemon opponent);
+    void sleep();
 }
 
 class Pikachu extends Pokemon {
@@ -83,7 +94,7 @@ class Meowth extends Pokemon {
     }
 }
 
-class Pokemon {
+abstract class Pokemon implements PokemonInteraction {
     protected String name;
     protected int healthPoints;
     protected int attack;
@@ -176,7 +187,6 @@ class Pokemon {
 }
 
 class PokemonTest {
-
     @Test
     void testEqualsAndHashCode() {
         Pikachu pikachu1 = new Pikachu("Пикачу");
