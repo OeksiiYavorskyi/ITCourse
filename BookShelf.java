@@ -5,12 +5,10 @@ import java.util.Scanner;
 
 public class BookShelf {
     private List<Book> books = new ArrayList<>();
-
     static class Book {
         String title;
         String author;
         int year;
-
         Book(String title, String author, int year) {
             this.title = title;
             this.author = author;
